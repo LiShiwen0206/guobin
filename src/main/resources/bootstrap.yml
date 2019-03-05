@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: website-server-guobin
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+      multipart:
+        max-file-size: 100Mb
+        max-request-size: 100Mb
+  cloud:
+    config:
+      profile: ${spring.profiles.active}
+      label: master
+      uri: http://192.168.40.62:9898/
+server:
+  port: 10006
+  tomcat:
+    max-connections: 3000
+    max-threads: 1000
+    basedir: /data/services/app/temp
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'

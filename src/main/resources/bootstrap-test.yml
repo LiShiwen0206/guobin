@@ -1,0 +1,53 @@
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 9
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipaddress}:${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://192.168.40.63:8888/eureka/
+ribbon:
+  eureka:
+    enabled: true
+
+spring:
+  datasource:
+    name: starsgroupchina
+    url: jdbc:mysql://192.168.40.64:3306/hxjk_website_guobin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&transformedBitIsBoolean=true&serverTimezone=GMT%2b8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      filters: config,slf4j,stat
+      maxActive: 30
+      initialSize: 2
+      maxWait: 60000
+      minIdle: 2
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      connectionInitSqls: set names utf8mb4;
+  kafka:
+    bootstrap-servers: 192.168.40.65:9092
+  redis:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 4
+    database: 0
+    sentinel:
+      master: mymaster
+      nodes: 192.168.40.64:26380,192.168.40.64:26381,192.168.40.64:26382
+    password: redis123456
+
+image-url: http://180.167.110.236:8088/file
